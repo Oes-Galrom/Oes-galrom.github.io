@@ -1,8 +1,8 @@
 // Water Simulation in p5.js
 
 let grid;
-const gridWidth = 1000;
-const gridHeight = 1000;
+const gridWidth = 500;
+const gridHeight = 500;
 const center = { x: gridWidth / 2, y: gridHeight / 2 };
 const dampingFactor = 0.99;
 const rippleThreshold = 0.01;
