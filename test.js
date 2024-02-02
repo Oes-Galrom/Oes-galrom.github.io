@@ -1,83 +1,63 @@
+// Water Simulation in p5.js
+
+let grid;
+const gridWidth = 1000;
+const gridHeight = 1000;
+const center = { x: gridWidth / 2, y: gridHeight / 2 };
+const dampingFactor = 0.99;
+const rippleThreshold = 0.01;
+
 function setup() {
-    createCanvas(800, 400); // Adjusted for multiple frames
-    cols = width / resolution / 2; // Adjust grid size for multiple frames
-    rows = height / resolution;
-    frameRate(10); // Adjust the frame rate as needed
-  }
-  
-  function draw() {
-    noLoop(); // Stop the draw loop
-  
-    let framesToShow = [10000, 20000, 30000]; // Example frame numbers
-    framesToShow.forEach((frameNumber, index) => {
-      let gridState = calculateFrameState(frameNumber);
-      drawFrame(gridState, index);
-    });
-  }
-  
-  function calculateFrameState(frameNumber) {
-    let localGrid = make2DArray(cols, rows);
-    let localAnt = {
-      x: floor(cols / 2),
-      y: floor(rows / 2),
-      dir: 0
-    };
-  
-    for (let i = 0; i < frameNumber; i++) {
-      updateAnt(localGrid, localAnt);
+    createCanvas(gridWidth, gridHeight);
+    grid = createGrid(gridWidth, gridHeight);
+}
+
+function draw() {
+    background(0);
+    updateGrid();
+    generateDroplet();
+    renderGrid();
+}
+
+function createGrid(width, height) {
+    let grid = new Array(height);
+    for (let y = 0; y < height; y++) {
+        grid[y] = new Array(width).fill(0);
     }
-  
-    return localGrid;
-  }
-  
-  function drawFrame(grid, frameIndex) {
-    let xOffset = frameIndex * cols * resolution;
-    for (let i = 0; i < cols; i++) {
-      for (let j = 0; j < rows; j++) {
-        let x = i * resolution + xOffset;
-        let y = j * resolution;
-        if (grid[i][j] == 1) {
-          fill(0);
-        } else {
-          fill(255);
+    return grid;
+}
+
+function updateGrid() {
+    let newGrid = createGrid(gridWidth, gridHeight);
+
+    for (let y = 1; y < gridHeight - 1; y++) {
+        for (let x = 1; x < gridWidth - 1; x++) {
+            let avg = (
+                grid[y - 1][x] + grid[y + 1][x] +
+                grid[y][x - 1] + grid[y][x + 1]
+            ) / 4;
+
+            newGrid[y][x] = avg * dampingFactor;
         }
-        stroke(0);
-        rect(x, y, resolution, resolution);
-      }
     }
-  }
-  
-  function updateAnt(grid, ant) {
-    let antCol = ant.x;
-    let antRow = ant.y;
-  
-    if (grid[antCol][antRow] == 0) {
-      ant.dir = (ant.dir + 1) % 4;
-      grid[antCol][antRow] = 1;
-    } else {
-      ant.dir = (ant.dir + 3) % 4;
-      grid[antCol][antRow] = 0;
+
+    grid = newGrid.map(row => row.map(value => value > rippleThreshold ? value : 0));
+}
+
+function generateDroplet() {
+    if (random() < 0.05) {
+        let dropletX = int(random(gridWidth));
+        let dropletY = int(random(gridHeight));
+        grid[dropletY][dropletX] = 255;
     }
-  
-    if (ant.dir == 0) {
-      ant.y--;
-    } else if (ant.dir == 1) {
-      ant.x++;
-    } else if (ant.dir == 2) {
-      ant.y++;
-    } else if (ant.dir == 3) {
-      ant.x--;
+}
+
+function renderGrid() {
+    for (let y = 0; y < gridHeight; y++) {
+        for (let x = 0; x < gridWidth; x++) {
+            let colorValue = grid[y][x];
+            stroke(255 - colorValue);
+            point(x, y);
+        }
     }
-  
-    ant.x = (ant.x + cols) % cols;
-    ant.y = (ant.y + rows) % rows;
-  }
-  
-  function make2DArray(cols, rows) {
-    let arr = new Array(cols);
-    for (let i = 0; i < cols; i++) {
-      arr[i] = new Array(rows).fill(0);
-    }
-    return arr;
-  }
-  
+}
