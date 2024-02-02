@@ -1,23 +1,22 @@
 // Water Simulation in p5.js
 
-let grid, prevGrid;
+let grid;
 const gridWidth = 100;
 const gridHeight = 100;
-const center = { x: Math.floor(gridWidth / 2), y: Math.floor(gridHeight / 2) };
+const center = { x: gridWidth / 2, y: gridHeight / 2 };
 const dampingFactor = 0.99;
+const rippleThreshold = 0.01;
 
 function setup() {
     createCanvas(gridWidth, gridHeight);
     grid = createGrid(gridWidth, gridHeight);
-    prevGrid = createGrid(gridWidth, gridHeight);
 }
 
 function draw() {
     background(0);
-    generateDroplet(center.x, center.y);
     updateGrid();
+    generateDroplet();
     renderGrid();
-    swapGrids();
 }
 
 function createGrid(width, height) {
@@ -29,37 +28,36 @@ function createGrid(width, height) {
 }
 
 function updateGrid() {
+    let newGrid = createGrid(gridWidth, gridHeight);
+
     for (let y = 1; y < gridHeight - 1; y++) {
         for (let x = 1; x < gridWidth - 1; x++) {
-            grid[y][x] = (
-                (prevGrid[y - 1][x] + prevGrid[y + 1][x] +
-                prevGrid[y][x - 1] + prevGrid[y][x + 1]) / 2
-            ) - grid[y][x];
-            grid[y][x] *= dampingFactor;
+            let avg = (
+                grid[y - 1][x] + grid[y + 1][x] +
+                grid[y][x - 1] + grid[y][x + 1]
+            ) / 4;
+
+            newGrid[y][x] = avg * dampingFactor;
         }
     }
+
+    grid = newGrid.map(row => row.map(value => value > rippleThreshold ? value : 0));
 }
 
-function generateDroplet(x, y) {
-    if (frameCount % 60 === 0) { // Generate a droplet every second
-        grid[y][x] = 500;
+function generateDroplet() {
+    if (random() < 0.05) {
+        let dropletX = int(random(gridWidth));
+        let dropletY = int(random(gridHeight));
+        grid[dropletY][dropletX] = 255;
     }
 }
 
 function renderGrid() {
-    loadPixels();
     for (let y = 0; y < gridHeight; y++) {
         for (let x = 0; x < gridWidth; x++) {
-            let colorValue = 255 - Math.abs(grid[y][x]);
-            set(x, y, color(colorValue));
+            let colorValue = grid[y][x];
+            stroke(255 - colorValue);
+            point(x, y);
         }
     }
-    updatePixels();
 }
-
-function swapGrids() {
-    let temp = grid;
-    grid = prevGrid;
-    prevGrid = temp;
-}
-
