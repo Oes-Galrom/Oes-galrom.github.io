@@ -4,6 +4,13 @@ const cellSize = 10;
 const gridWidth = 400;
 const gridHeight = 400;
 
+function createGrid(cols, rows) {
+  let arr = new Array(cols);
+  for (let i = 0; i < arr.length; i++) {
+      arr[i] = new Array(rows);
+  }
+  return arr;
+}
 function setup() {
   createCanvas(gridWidth, gridHeight);
   cols = floor(width / cellSize);
