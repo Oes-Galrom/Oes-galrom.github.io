@@ -1,6 +1,6 @@
 let grid;
-const gridWidth = 100;
-const gridHeight = 100;
+let gridWidth = windowWidth;  // Updated to use windowWidth
+let gridHeight = windowHeight;
 const center = { x: gridWidth / 2, y: gridHeight / 2 };
 const dampingFactor = 0.99;
 const rippleThreshold = 0.01;
@@ -13,6 +13,8 @@ function setup() {
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+    gridWidth = windowWidth;
+    gridHeight = windowHeight;
     grid = createGrid(windowWidth, windowHeight);
 }
 
