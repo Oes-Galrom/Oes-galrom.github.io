@@ -15,7 +15,13 @@ body, html {
 }
 
 #content-box {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%; /* Adjust as needed */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 10;
-    /* Style your content box (size, color, padding, etc.) */
 }

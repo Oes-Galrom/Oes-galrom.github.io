@@ -8,15 +8,16 @@ const rippleThreshold = 0.01;
 function setup() {
     let canvas = createCanvas(windowWidth, windowHeight);
     canvas.parent('canvas-container');
-    grid = createGrid(width, height);
+    grid = createGrid(windowWidth, windowHeight);
 }
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+    grid = createGrid(windowWidth, windowHeight);
 }
 
 function draw() {
-    background(0);
+    background(90,90,90);//grey
     updateGrid();
     generateDroplet();
     renderGrid();
@@ -48,7 +49,7 @@ function updateGrid() {
 }
 
 function generateDroplet() {
-    if (random() < 0.05) {
+    if (random() < 0.1) {//adjusted from .05 
         let dropletX = int(random(gridWidth));
         let dropletY = int(random(gridHeight));
         grid[dropletY][dropletX] = 255;
@@ -59,7 +60,8 @@ function renderGrid() {
     for (let y = 0; y < gridHeight; y++) {
         for (let x = 0; x < gridWidth; x++) {
             let colorValue = grid[y][x];
-            stroke(255 - colorValue);
+            stroke(255 - colorValue,0 ,0);
+            strokeWeight(2);
             point(x, y);
         }
     }
