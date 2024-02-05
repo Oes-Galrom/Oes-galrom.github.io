@@ -8,13 +8,14 @@ const rippleThreshold = 0.01;
 function setup() {
     let canvas = createCanvas(windowWidth, windowHeight);
     canvas.parent('canvas-container');
-    grid = createGrid(windowWidth, windowHeight);
+    //grid = createGrid(windowWidth, windowHeight);
 }
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
     gridWidth = windowWidth;
     gridHeight = windowHeight;
+    background(255, 0, 0);
     grid = createGrid(windowWidth, windowHeight);
 }
 
