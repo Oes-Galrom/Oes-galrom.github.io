@@ -1,26 +1,25 @@
+let grid;
 let gridWidth, gridHeight;
 
-const center = { x: gridWidth / 2, y: gridHeight / 2 };
 const dampingFactor = 0.99;
 const rippleThreshold = 0.01;
 
 function setup() {
-    let gridWidth = windowWidth;  // Updated to use windowWidth
-    let gridHeight = windowHeight;
-    let canvas = createCanvas(windowWidth, windowHeight);
+    gridWidth = windowWidth;
+    gridHeight = windowHeight;
+    let canvas = createCanvas(gridWidth, gridHeight);
     canvas.parent('canvas-container');
-    //grid = createGrid(windowWidth, windowHeight);
+    grid = createGrid(gridWidth, gridHeight);
+    background(90, 90, 90); // Initial background
 }
 
 function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
     gridWidth = windowWidth;
     gridHeight = windowHeight;
-    background(255, 0, 0);
-    grid = createGrid(windowWidth, windowHeight);
+    resizeCanvas(gridWidth, gridHeight);
+    grid = createGrid(gridWidth, gridHeight);
+    background(90, 90, 90); // Update background on resize
 }
-
-
 
 function createGrid(width, height) {
     let grid = new Array(height);
@@ -35,11 +34,7 @@ function updateGrid() {
 
     for (let y = 1; y < gridHeight - 1; y++) {
         for (let x = 1; x < gridWidth - 1; x++) {
-            let avg = (
-                grid[y - 1][x] + grid[y + 1][x] +
-                grid[y][x - 1] + grid[y][x + 1]
-            ) / 4;
-
+            let avg = (grid[y - 1][x] + grid[y + 1][x] + grid[y][x - 1] + grid[y][x + 1]) / 4;
             newGrid[y][x] = avg * dampingFactor;
         }
     }
@@ -48,7 +43,7 @@ function updateGrid() {
 }
 
 function generateDroplet() {
-    if (random() < 0.1) {//adjusted from .05 
+    if (random() < 0.1) {
         let dropletX = int(random(gridWidth));
         let dropletY = int(random(gridHeight));
         grid[dropletY][dropletX] = 255;
@@ -58,15 +53,14 @@ function generateDroplet() {
 function renderGrid() {
     for (let y = 0; y < gridHeight; y++) {
         for (let x = 0; x < gridWidth; x++) {
-            // let colorValue = grid[y][x];
-            // stroke(255 - colorValue,0 ,0);
             strokeWeight(2);
             point(x, y);
         }
     }
 }
+
 function draw() {
-    background(90,90,90);//grey
+    background(90, 90, 90);
     updateGrid();
     generateDroplet();
     renderGrid();
