@@ -9,24 +9,24 @@ function setup() {
     gridHeight = windowHeight;
     let canvas = createCanvas(gridWidth, gridHeight);
     canvas.parent('canvas-container');
-    grid = createGrid(gridWidth, gridHeight);
-    background(90, 90, 90); // Initial background
+    grid = createGrid(gridWidth, gridHeight); // Initialize grid here
+    background(90, 90, 90);
 }
 
 function windowResized() {
     gridWidth = windowWidth;
     gridHeight = windowHeight;
     resizeCanvas(gridWidth, gridHeight);
-    grid = createGrid(gridWidth, gridHeight);
-    background(90, 90, 90); // Update background on resize
+    grid = createGrid(gridWidth, gridHeight); // Reinitialize grid here
+    background(90, 90, 90);
 }
 
 function createGrid(width, height) {
-    let grid = new Array(height);
+    let newGrid = new Array(height);
     for (let y = 0; y < height; y++) {
-        grid[y] = new Array(width).fill(0);
+        newGrid[y] = new Array(width).fill(0);
     }
-    return grid;
+    return newGrid;
 }
 
 function updateGrid() {
