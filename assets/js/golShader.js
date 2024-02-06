@@ -11,7 +11,7 @@ function setup() {
   pixelDensity(1);
   noSmooth();
   
-  prevFrame = createGraphics(width, height);
+  prevFrame = createGraphics(width, height, WEBGL);
   prevFrame.pixelDensity(1);
   prevFrame.noSmooth();
   
