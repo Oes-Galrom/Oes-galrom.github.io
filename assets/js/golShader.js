@@ -2,7 +2,7 @@ let golShader;
 
 function preload() {
     golShader = loadShader('gol.vert', 'gol.frag');
-}
+  }
 
 function setup() {
     createCanvas(windowWidth, windowHeight, WEBGL);//include WEBGL
