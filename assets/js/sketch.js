@@ -4,7 +4,7 @@ let gridState;
 const cellSize = 20;
 
 function preload() {
-  theShader = loadShader('shaders/vertex.vert', 'shaders/fragment.frag');
+  theShader = loadShader('assets/shaders/vertex.vert', 'assets/shaders/fragment.frag');
 }
 
 function setup() {
