@@ -3,11 +3,16 @@ let golShader;
 let prevFrame;
 
 function preload() {
+    // Retrieve shader source
     const vertShaderSrc = document.getElementById('vertex-shader').text;
     const fragShaderSrc = document.getElementById('fragment-shader').text;
   
+    // Create shaders
+    const vertShader = createShader(this._renderer.GL.VERTEX_SHADER, vertShaderSrc);
+    const fragShader = createShader(this._renderer.GL.FRAGMENT_SHADER, fragShaderSrc);
 
-  golShader = loadShader(this._renderer, vertShaderSrc, fragShaderSrc);
+    // Create shader program
+    golShader = this._renderer.createShader(vertShader, fragShader);
 }
 
 function setup() {
