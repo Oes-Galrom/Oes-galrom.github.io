@@ -7,7 +7,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600, 600, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   pixelDensity(1);
   noSmooth();
   
@@ -19,6 +19,10 @@ function setup() {
   stroke(255);
   shader(golShader);
   golShader.setUniform("normalRes", [1.0/width, 1.0/height]);
+}
+
+function windowResized(){
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
