@@ -3,7 +3,11 @@ let golShader;
 let prevFrame;
 
 function preload() {
-  golShader = loadShader('gol.vert', 'gol.frag');
+    const vertShaderSrc = document.getElementById('vertex-shader').text;
+    const fragShaderSrc = document.getElementById('fragment-shader').text;
+  
+
+  golShader = loadShader(this._renderer, vertShaderSrc, fragShaderSrc);
 }
 
 function setup() {
