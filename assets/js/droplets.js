@@ -9,16 +9,15 @@ function setup() {
     gridHeight = windowHeight;
     let canvas = createCanvas(gridWidth, gridHeight);
     canvas.parent('canvas-container');
-    grid = createGrid(gridWidth, gridHeight); // Initialize grid here
-    background(90, 90, 90);
+    grid = createGrid(gridWidth, gridHeight);
+    background(90, 90, 90); // Initial background
 }
 
 function windowResized() {
     gridWidth = windowWidth;
     gridHeight = windowHeight;
     resizeCanvas(gridWidth, gridHeight);
-    grid = createGrid(gridWidth, gridHeight); // Reinitialize grid here
-    background(90, 90, 90);
+    grid = createGrid(gridWidth, gridHeight);
 }
 
 function createGrid(width, height) {
@@ -43,24 +42,29 @@ function updateGrid() {
 }
 
 function generateDroplet() {
-    if (random() < 0.1) {
+    if (random() < 0.1) { // Adjust probability as needed
         let dropletX = int(random(gridWidth));
         let dropletY = int(random(gridHeight));
-        grid[dropletY][dropletX] = 255;
+        grid[dropletY][dropletX] = 255; // Start with a high value for a visible ripple
     }
 }
 
 function renderGrid() {
+    loadPixels();
     for (let y = 0; y < gridHeight; y++) {
         for (let x = 0; x < gridWidth; x++) {
-            strokeWeight(2);
-            point(x, y);
+            let idx = (x + y * width) * 4;
+            let value = grid[y][x];
+            pixels[idx] = value; // Red channel
+            pixels[idx + 1] = value; // Green channel
+            pixels[idx + 2] = value; // Blue channel
+            pixels[idx + 3] = 255; // Alpha channel
         }
     }
+    updatePixels();
 }
 
 function draw() {
-    background(90, 90, 90);
     updateGrid();
     generateDroplet();
     renderGrid();
