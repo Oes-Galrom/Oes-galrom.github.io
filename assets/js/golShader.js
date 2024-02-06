@@ -1,7 +1,7 @@
 let golShader;
 
 function preload() {
-    golshader = loadShader('gol.vert, 'gol.frag');
+    golShader = loadShader('gol.vert', 'gol.frag');
 }
 
 function setup() {
