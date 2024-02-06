@@ -1,0 +1,47 @@
+let golShader;
+
+let prevFrame;
+
+function preload() {
+  golShader = loadShader('assets/shaders/gol.vert', 'assets/shaders/gol.frag');
+}
+
+function setup() {
+  createCanvas(600, 600, WEBGL);
+  pixelDensity(1);
+  noSmooth();
+  
+  prevFrame = createGraphics(width, height, WEBGL);
+  prevFrame.pixelDensity(1);
+  prevFrame.noSmooth();
+  
+  background(0);
+  stroke(255);
+  shader(golShader);
+  golShader.setUniform("normalRes", [1.0/width, 1.0/height]);
+}
+
+function draw() {
+  // Draw lines based on mouse input
+  if (mouseIsPressed) {
+    line(
+      pmouseX - width / 2,
+      pmouseY - height / 2,
+      mouseX - width / 2,
+      mouseY - height / 2
+    );
+  }
+
+  // Copy the rendered image into prevFrame
+  prevFrame.image(get(), 0, 0);
+
+  // Apply shader to prevFrame
+  prevFrame.shader(golShader);
+  golShader.setUniform('tex', prevFrame);
+  
+  // Draw on prevFrame
+  prevFrame.rect(-width / 2, -height / 2, width, height);
+
+  // Display the prevFrame on the main canvas
+  image(prevFrame, -width / 2, -height / 2, width, height);
+}
