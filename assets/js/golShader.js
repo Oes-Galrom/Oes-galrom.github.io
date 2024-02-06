@@ -35,7 +35,7 @@ function draw() {
   prevFrame.image(get(), 0, 0);  
   // Set the image of the previous frame into our shader
   golShader.setUniform('tex', prevFrame);
-  
+  prevFrame.shader(golShader);
   // Give the shader a surface to draw on
   rect(-width/2,-height/2,width,height);
 }
