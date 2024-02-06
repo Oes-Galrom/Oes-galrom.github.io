@@ -23,6 +23,7 @@ function setup() {
 
 function draw() {
     if(mouseIsPressed) {
+        prevFrame.stroke(255);
       line(
         pmouseX-width/2,
         pmouseY-height/2,
@@ -34,10 +35,13 @@ function draw() {
     // Set the shader and uniform for prevFrame
     prevFrame.shader(golShader);
     golShader.setUniform('tex', prevFrame);
-    
-    // Render on prevFrame
-    prevFrame.rect(-width/2, -height/2, width, height);
-  
-    // Draw the prevFrame onto the main canvas
-    image(prevFrame, -width/2, -height/2, width, height);
+  // Render a rectangle on the prevFrame
+  // The shader will be applied to this rectangle
+  prevFrame.rect(-width / 2, -height / 2, width, height);
+
+  // Draw the prevFrame onto the main canvas
+  image(prevFrame, -width / 2, -height / 2, width, height);
+
+  // Copy the current state of the main canvas to prevFrame for the next iteration
+  prevFrame.copy(canvas, 0, 0, width, height, 0, 0, width, height);
   }
