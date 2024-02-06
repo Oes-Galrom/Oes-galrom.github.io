@@ -4,8 +4,13 @@ let gridState;
 const cellSize = 20;
 
 function preload() {
-  theShader = loadShader('assets/shaders/vertex.vert', 'assets/shaders/fragment.frag');
-}
+    // Fetch shader source from the script tags
+    const vertShaderSrc = document.getElementById('vertex-shader').text;
+    const fragShaderSrc = document.getElementById('fragment-shader').text;
+  
+    // Load the shaders
+    theShader = new p5.Shader(this._renderer, vertShaderSrc, fragShaderSrc);
+  }
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
