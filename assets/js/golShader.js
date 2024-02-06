@@ -3,33 +3,22 @@ let golShader;
 let prevFrame;
 
 function preload() {
-    golShader = loadShader('assets/shaders/dummy.vert', 'assets/shaders/dummy.frag');
+  golShader = loadShader('assets/shaders/gol.vert', 'assets/shaders/gol.frag');
 }
 
 function setup() {
-
-    // Retrieve shader source from HTML
-    const vertShaderSrc = document.getElementById('vertex-shader').text;
-    const fragShaderSrc = document.getElementById('fragment-shader').text;
-
-    // Replace dummy shader source with actual source
-    golShader._vertSrc = vertShaderSrc;
-    golShader._fragSrc = fragShaderSrc;
-    golShader._glslProgram = undefined;
-    golShader._updateShader();
-
   createCanvas(600, 600, WEBGL);
-  pixelDensity(1);// 1 pixel
-  noSmooth();// no antiliasing
+  pixelDensity(1);
+  noSmooth();
   
   prevFrame = createGraphics(width, height);
   prevFrame.pixelDensity(1);
   prevFrame.noSmooth();
   
-  background(0);//black background
-  stroke(255); //white 
+  background(0);
+  stroke(255);
   shader(golShader);
-  golShader.setUniform("normalRes", [1.0/width, 1.0/height]); //normal res is a vector with size of the pixel normalized between 0 and 1 to calculate neighbords in the shader
+  golShader.setUniform("normalRes", [1.0/width, 1.0/height]);
 }
 
 function draw() {

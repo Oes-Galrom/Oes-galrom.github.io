@@ -4,7 +4,9 @@ body, html {
     height: 100%;
     overflow: hidden;
 }
-
+canvas {
+    display: block;
+  }
 #canvas-container {
     position: fixed;
     top: 0;
