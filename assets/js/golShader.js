@@ -3,19 +3,21 @@ let golShader;
 let prevFrame;
 
 function preload() {
-    // Retrieve shader source
-    const vertShaderSrc = document.getElementById('vertex-shader').text;
-    const fragShaderSrc = document.getElementById('fragment-shader').text;
-  
-    // Create shaders
-    const vertShader = createShader(this._renderer.GL.VERTEX_SHADER, vertShaderSrc);
-    const fragShader = createShader(this._renderer.GL.FRAGMENT_SHADER, fragShaderSrc);
-
-    // Create shader program
-    golShader = this._renderer.createShader(vertShader, fragShader);
+    golShader = loadShader('assets/shaders/dummy.vert', 'assets/shaders/dummy.frag');
 }
 
 function setup() {
+
+    // Retrieve shader source from HTML
+    const vertShaderSrc = document.getElementById('vertex-shader').text;
+    const fragShaderSrc = document.getElementById('fragment-shader').text;
+
+    // Replace dummy shader source with actual source
+    golShader._vertSrc = vertShaderSrc;
+    golShader._fragSrc = fragShaderSrc;
+    golShader._glslProgram = undefined;
+    golShader._updateShader();
+
   createCanvas(600, 600, WEBGL);
   pixelDensity(1);// 1 pixel
   noSmooth();// no antiliasing
