@@ -32,11 +32,14 @@ function draw() {
       );
     }
   
+    // Apply the shader to prevFrame
     prevFrame.shader(golShader);
     golShader.setUniform('tex', prevFrame);
     prevFrame.rect(-width / 2, -height / 2, width, height);
+  
+    // Display the prevFrame on the main canvas
     image(prevFrame, -width / 2, -height / 2, width, height);
   
-    // Adjusted copy method
-    prevFrame.copy(drawingContext, 0, 0, width, height, 0, 0, width, height);
+    // Use image() instead of copy() to draw the main canvas onto prevFrame
+    prevFrame.image(get(), 0, 0, width, height);
   }
