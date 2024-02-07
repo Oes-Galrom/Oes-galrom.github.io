@@ -1,76 +1,45 @@
-// Define the L-System rules and parameters
-const d1 = 94.74; // divergence angle 1
-const d2 = 132.63; // divergence angle 2
-const a = 18.95; // branching angle
-const lr = 1.109; // elongation rate
-const vr = 1.732; // width increase rate
-let sentence = "!(1)F(200)/(45)A";
-let rules = {
-  'A': () => `!(1)F(50)[&(${a})F(50)A]/(${d1})[&(${a})F(50)A]/(${d2})[&(${a})F(50)A]`,
-  'F': (l) => `F(${l * lr})`,
-  '!': (w) => `!(${w * vr})`
-};
+let golShader;
 
-function generateSystem(iterations) {
-  for (let i = 0; i < iterations; i++) {
-    let nextSentence = "";
-    let regex = /F\(([^)]+)\)|!\(([^)]+)\)|[A-Z\[\]\+\-\/&]/g;
-    let match;
-    while ((match = regex.exec(sentence)) !== null) {
-      if (match[0] === 'A') {
-        nextSentence += rules['A']();
-      } else if (match[0].startsWith('F(')) {
-        let len = parseFloat(match[1]);
-        nextSentence += rules['F'](len);
-      } else if (match[0].startsWith('!(')) {
-        let width = parseFloat(match[1]);
-        nextSentence += rules['!'](width);
-      } else {
-        nextSentence += match[0];
-      }
-    }
-    sentence = nextSentence;
-  }
-}
+let prevFrame;
 
-function turtle() {
-  resetMatrix();
-  translate(width / 2, height);
-  stroke(0, 100, 0);
-  let stack = [];
-  let regex = /F\(([^)]+)\)|!\(([^)]+)\)|\+|\-|\/\(([^)]+)\)|&\(([^)]+)\)|\[|\]/g;
-  let match;
-  while ((match = regex.exec(sentence)) !== null) {
-    if (match[0].startsWith('F(')) {
-      let len = parseFloat(match[1]);
-      line(0, 0, 0, -len);
-      translate(0, -len);
-    } else if (match[0].startsWith('!(')) {
-      let width = parseFloat(match[1]);
-      strokeWeight(width);
-    } else if (match[0] === '+') {
-      rotate(radians(d1));
-    } else if (match[0] === '-') {
-      rotate(radians(-d1));
-    } else if (match[0].startsWith('/(')) {
-      rotate(radians(parseFloat(match[1])));
-    } else if (match[0].startsWith('&(')) {
-      rotate(radians(parseFloat(match[1])));
-    } else if (match[0] === '[') {
-      push();
-    } else if (match[0] === ']') {
-      pop();
-    }
-  }
+function preload() {
+  golShader = loadShader('assets/shaders/gol.vert', 'assets/shaders/gol.frag');
 }
 
 function setup() {
-  createCanvas(800, 600);
-  angleMode(DEGREES);
-  generateSystem(4); // Adjust the number of iterations
-  turtle();
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  pixelDensity(1);
+  noSmooth();
+  
+  prevFrame = createGraphics(width, height);
+  prevFrame.pixelDensity(1);
+  prevFrame.noSmooth();
+  
+  background(0);
+  stroke(255);
+  shader(golShader);
+  golShader.setUniform("normalRes", [1.0/width, 1.0/height]);
+}
+
+function windowResized(){
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
-  // No continuous drawing to keep the sketch static
+  if(mouseIsPressed) {
+    line(
+      pmouseX-width/2,
+      pmouseY-height/2,
+      mouseX-width/2,
+      mouseY-height/2
+    );
+  }  
+  
+  // Copy the rendered image into our prevFrame image
+  prevFrame.image(get(), 0, 0);  
+  // Set the image of the previous frame into our shader
+  golShader.setUniform('tex', prevFrame);
+  
+  // Give the shader a surface to draw on
+  rect(-width/2,-height/2,width,height);
 }
