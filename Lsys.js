@@ -34,35 +34,37 @@ function generateSystem(iterations) {
 }
 
 function turtle() {
-  resetMatrix();
-  translate(width / 2, height);
-  stroke(0, 100, 0);
-  let stack = [];
-  let regex = /F\(([^)]+)\)|!\(([^)]+)\)|\+|\-|\/\(([^)]+)\)|&\(([^)]+)\)|\[|\]/g;
-  let match;
-  while ((match = regex.exec(sentence)) !== null) {
-    if (match[0].startsWith('F(')) {
-      let len = parseFloat(match[1]);
-      line(0, 0, 0, -len);
-      translate(0, -len);
-    } else if (match[0].startsWith('!(')) {
-      let width = parseFloat(match[1]);
-      strokeWeight(width);
-    } else if (match[0] === '+') {
-      rotate(radians(d1));
-    } else if (match[0] === '-') {
-      rotate(radians(-d1));
-    } else if (match[0].startsWith('/(')) {
-      rotate(radians(parseFloat(match[1])));
-    } else if (match[0].startsWith('&(')) {
-      rotate(radians(parseFloat(match[1])));
-    } else if (match[0] === '[') {
-      push();
-    } else if (match[0] === ']') {
-      pop();
+    resetMatrix();
+    // Translate to the middle of the screen horizontally and to the bottom of the screen vertically
+    translate(width / 2, height);
+    
+    stroke(0, 100, 0); // Set the drawing color for the tree
+    let stack = [];
+    let regex = /F\(([^)]+)\)|!\(([^)]+)\)|\+|\-|\/\(([^)]+)\)|&\(([^)]+)\)|\[|\]/g;
+    let match;
+    while ((match = regex.exec(sentence)) !== null) {
+      if (match[0].startsWith('F(')) {
+        let len = parseFloat(match[1]);
+        line(0, 0, 0, -len); // Draw a line upwards
+        translate(0, -len); // Move the drawing position upwards
+      } else if (match[0].startsWith('!(')) {
+        let width = parseFloat(match[1]);
+        strokeWeight(width); // Set the line width
+      } else if (match[0] === '+') {
+        rotate(radians(d1)); // Rotate right by d1 degrees
+      } else if (match[0] === '-') {
+        rotate(radians(-d1)); // Rotate left by d1 degrees
+      } else if (match[0].startsWith('/(')) {
+        rotate(radians(parseFloat(match[1]))); // Roll the drawing angle
+      } else if (match[0].startsWith('&(')) {
+        rotate(radians(parseFloat(match[1]))); // Pitch the drawing angle
+      } else if (match[0] === '[') {
+        push(); // Save the current drawing state
+      } else if (match[0] === ']') {
+        pop(); // Restore the previous drawing state
+      }
     }
   }
-}
 
 function setup() {
   createCanvas(800, 600);
