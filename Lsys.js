@@ -33,45 +33,39 @@ function generateSystem(iterations) {
   }
 }
 
-function turtle() {
+function setup() {
+    createCanvas(800, 600);
+    background(255);
+    angleMode(DEGREES);
+    generateSystem(4); // Generate the system with a simplified rule set for testing
+  }
+  
+  function turtle() {
     resetMatrix();
-    // Translate to the middle of the screen horizontally and to the bottom of the screen vertically
-    translate(width / 2, height);
-    
-    stroke(0, 100, 0); // Set the drawing color for the tree
-    let stack = [];
-    let regex = /F\(([^)]+)\)|!\(([^)]+)\)|\+|\-|\/\(([^)]+)\)|&\(([^)]+)\)|\[|\]/g;
-    let match;
-    while ((match = regex.exec(sentence)) !== null) {
-      if (match[0].startsWith('F(')) {
-        let len = parseFloat(match[1]);
-        line(0, 0, 0, -len); // Draw a line upwards
-        translate(0, -len); // Move the drawing position upwards
-      } else if (match[0].startsWith('!(')) {
-        let width = parseFloat(match[1]);
-        strokeWeight(width); // Set the line width
-      } else if (match[0] === '+') {
-        rotate(radians(d1)); // Rotate right by d1 degrees
-      } else if (match[0] === '-') {
-        rotate(radians(-d1)); // Rotate left by d1 degrees
-      } else if (match[0].startsWith('/(')) {
-        rotate(radians(parseFloat(match[1]))); // Roll the drawing angle
-      } else if (match[0].startsWith('&(')) {
-        rotate(radians(parseFloat(match[1]))); // Pitch the drawing angle
-      } else if (match[0] === '[') {
-        push(); // Save the current drawing state
-      } else if (match[0] === ']') {
-        pop(); // Restore the previous drawing state
+    translate(width / 2, height - 50); // Start from near the bottom center of the canvas
+    stroke(0, 100, 0);
+    strokeWeight(1);
+  
+    // Simplified drawing logic for debugging
+    let len = 100; // Starting length
+    for (let i = 0; i < sentence.length; i++) {
+      let currentChar = sentence.charAt(i);
+  
+      if (currentChar === 'F') {
+        line(0, 0, 0, -len);
+        translate(0, -len);
+      } else if (currentChar === '+') {
+        rotate(25); // Adjust angle as needed
+      } else if (currentChar === '-') {
+        rotate(-25); // Adjust angle as needed
+      } else if (currentChar === '[') {
+        push();
+      } else if (currentChar === ']') {
+        pop();
       }
+      // Add logic for other commands as needed
     }
   }
-
-function setup() {
-  createCanvas(800, 600);
-  angleMode(DEGREES);
-  generateSystem(4); // Adjust the number of iterations
-  turtle();
-}
 
 function draw() {
   // No continuous drawing to keep the sketch static
