@@ -1,72 +1,124 @@
-// Define the L-System rules and parameters
-const d1 = 94.74; // divergence angle 1
-const d2 = 132.63; // divergence angle 2
-const a = 18.95; // branching angle
-const lr = 1.109; // elongation rate
-const vr = 1.732; // width increase rate
-let sentence = "!(1)F(200)/(45)A";
-let rules = {
-  'A': () => `!(1)F(50)[&(${a})F(50)A]/(${d1})[&(${a})F(50)A]/(${d2})[&(${a})F(50)A]`,
-  'F': (l) => `F(${l * lr})`,
-  '!': (w) => `!(${w * vr})`
-};
+let environment;
+let agents = [];
 
-function generateSystem(iterations) {
-  for (let i = 0; i < iterations; i++) {
-    let nextSentence = "";
-    let regex = /F\(([^)]+)\)|!\(([^)]+)\)|[A-Z\[\]\+\-\/&]/g;
-    let match;
-    while ((match = regex.exec(sentence)) !== null) {
-      if (match[0] === 'A') {
-        nextSentence += rules['A']();
-      } else if (match[0].startsWith('F(')) {
-        let len = parseFloat(match[1]);
-        nextSentence += rules['F'](len);
-      } else if (match[0].startsWith('!(')) {
-        let width = parseFloat(match[1]);
-        nextSentence += rules['!'](width);
-      } else {
-        nextSentence += match[0];
-      }
-    }
-    sentence = nextSentence;
+function setup() {
+  createCanvas(600, 600);
+  environment = new Environment(width, height);
+  for (let i = 0; i < 100; i++) {
+    agents.push(new Agent(random(width), random(height)));
   }
 }
 
-function setup() {
-    createCanvas(800, 600);
-    background(255);
-    angleMode(DEGREES);
-    generateSystem(4); // Generate the system with a simplified rule set for testing
+function draw() {
+  background(220);
+  environment.update();
+  agents.forEach(agent => {
+    agent.senseAndMove(environment);
+    agent.display();
+  });
+  displayEnvironment();
+}
+
+class Agent {
+  constructor(x, y) {
+    this.pos = createVector(x, y);
+    this.vel = p5.Vector.random2D();
+    this.sensorDistance = 10;
+    this.sensorAngle = PI / 8;
+    this.depositAmount = 1;
+    this.moveSpeed = 2;
   }
-  
-  function turtle() {
-    resetMatrix();
-    translate(width / 2, height - 50); // Start from near the bottom center of the canvas
-    stroke(0, 100, 0);
-    strokeWeight(1);
-  
-    // Simplified drawing logic for debugging
-    let len = 100; // Starting length
-    for (let i = 0; i < sentence.length; i++) {
-      let currentChar = sentence.charAt(i);
-  
-      if (currentChar === 'F') {
-        line(0, 0, 0, -len);
-        translate(0, -len);
-      } else if (currentChar === '+') {
-        rotate(25); // Adjust angle as needed
-      } else if (currentChar === '-') {
-        rotate(-25); // Adjust angle as needed
-      } else if (currentChar === '[') {
-        push();
-      } else if (currentChar === ']') {
-        pop();
+
+  senseAndMove(environment) {
+    let sensorOffsets = [-this.sensorAngle, 0, this.sensorAngle];
+    let maxGradient = -Infinity;
+    let chosenDirection = this.vel.copy();
+
+    sensorOffsets.forEach(offset => {
+      let direction = this.vel.copy().rotate(offset);
+      let samplePos = p5.Vector.add(this.pos, direction.setMag(this.sensorDistance));
+      let gradient = environment.getGradientAt(samplePos.x, samplePos.y);
+
+      if (gradient > maxGradient) {
+        maxGradient = gradient;
+        chosenDirection = direction;
       }
-      // Add logic for other commands as needed
+    });
+
+    this.vel = chosenDirection;
+    this.pos.add(this.vel.setMag(this.moveSpeed));
+    this.deposit(environment);
+    this.wrapAround();
+  }
+
+  deposit(environment) {
+    environment.depositAt(this.pos.x, this.pos.y, this.depositAmount);
+  }
+
+  wrapAround() {
+    this.pos.x = (this.pos.x + width) % width;
+    this.pos.y = (this.pos.y + height) % height;
+  }
+
+  display() {
+    stroke(0);
+    point(this.pos.x, this.pos.y);
+  }
+}
+
+class Environment {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+    this.grid = Array.from({ length: height }, () => new Array(width).fill(0));
+    this.diffusionRate = 0.1;
+    this.decayRate = 0.01;
+  }
+
+  depositAt(x, y, amount) {
+    if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+      this.grid[Math.floor(y)][Math.floor(x)] += amount;
     }
   }
 
-function draw() {
-  // No continuous drawing to keep the sketch static
+  getGradientAt(x, y) {
+    return this.grid[Math.floor(y)]?.[Math.floor(x)] || 0;
+  }
+
+  update() {
+    let newGrid = Array.from({ length: this.height }, () => new Array(this.width).fill(0));
+
+    for (let y = 0; y < this.height; y++) {
+      for (let x = 0; x < this.width; x++) {
+        let sum = 0;
+        let count = 0;
+        for (let dy = -1; dy <= 1; dy++) {
+          for (let dx = -1; dx <= 1; dx++) {
+            let nx = x + dx, ny = y + dy;
+            if (nx >= 0 && nx < this.width && ny >= 0 && ny < this.height) {
+              sum += this.grid[ny][nx];
+              count++;
+            }
+          }
+        }
+        let average = sum / count;
+        newGrid[y][x] = average - this.decayRate;
+      }
+    }
+
+    this.grid = newGrid.map(row => row.map(value => max(value, 0))); // Ensure values don't go negative
+  }
+}
+
+function displayEnvironment() {
+  loadPixels();
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      const index = (x + y * width) * 4;
+      const value = environment.getGradientAt(x, y);
+      pixels[index] = pixels[index + 1] = pixels[index + 2] = 255 - value * 255; // Mapping concentration to grayscale
+      pixels[index + 3] = 255; // Fully opaque
+    }
+  }
+  updatePixels();
 }
