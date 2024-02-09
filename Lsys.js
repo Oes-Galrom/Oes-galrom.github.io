@@ -85,6 +85,16 @@ class Environment {
     return this.grid[Math.floor(y)]?.[Math.floor(x)] || 0;
   }
 
+  function mousePressed() {
+    // Check if the mouse position is within the canvas bounds
+    if (mouseX >= 0 && mouseX < width && mouseY >= 0 && mouseY < height) {
+      // Deposit a larger amount of chemical at the mouse position
+      environment.depositAt(mouseX, mouseY, 50); // Increase the 50 to deposit more "chemical"
+    }
+  }
+  
+
+
   update() {
     let newGrid = Array.from({ length: this.height }, () => new Array(this.width).fill(0));
 
