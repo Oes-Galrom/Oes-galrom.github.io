@@ -40,8 +40,8 @@ canvas {
 
 #windows-image {
         position:absolute;
-        width:100%
-        y-index: 25;
+        width:100%;
+        top: 1800px;
 }
 #content-box {
     position: relative;
