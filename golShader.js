@@ -1,5 +1,4 @@
 let golShader;
-
 let prevFrame;
 
 function preload() {
@@ -24,8 +23,9 @@ function setup() {
   golShader.setUniform("normalRes", [1.0/width, 1.0/height]);
 }
 
-function windowResized(){
-  resizeCanvas(windowWidth, windowHeight);
+function windowResized() {
+  const mainDiv = document.getElementById('main');
+  resizeCanvas(mainDiv.offsetWidth, mainDiv.offsetHeight);
 }
 
 function draw() {
