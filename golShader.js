@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', function() {
+
 let golShader;
 let prevFrame;
 
@@ -46,3 +48,4 @@ function draw() {
   // Give the shader a surface to draw on
   rect(-width/2,-height/2,width,height);
 }
+});
