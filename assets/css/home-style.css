@@ -6,7 +6,9 @@ body, html {
 }
 canvas {
     display: block;
-  }
+    max-width:100%;
+    height: auto;
+}
 #canvas-container {
     position: fixed;
     top: 0;
@@ -15,29 +17,31 @@ canvas {
     height: 100%;
     z-index: -1;
 }
-#mountain-image {
+#mountain-image, #windows-image {
         position: absolute;
         width: 100%; 
-        z-index: 5; /* On top of the shader, but below the text */
+        z-index: 1; /* On top of the shader, but below the text */
+}
+#mountain-image{
+    top: 0;
 }
 #windows-image {
-        position:absolute;
-        width:100%;
-        top: 1800px;
+    top: 0;
 }
 
 .wrapper {
     display: block;
-  }
+}
 
 aside, main {
     padding: 16px;
 }
 
 #main {
-    width: 100vw;
-    height: 100vh;
+    width: 100%; /* Full width of its container for responsiveness */
+    min-height: 80vh; /* Minimum height, can adjust based on layout needs */
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
