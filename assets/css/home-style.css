@@ -2,7 +2,6 @@ body, html {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    height: 100vh;
     overflow: hidden;
 }
 canvas {
@@ -26,7 +25,7 @@ canvas {
 #windows-image {
         position:absolute;
         width:100%;
-        /* top: 1800px; */
+        top: 1800px;
 }
 #content-box {
     position: relative;
