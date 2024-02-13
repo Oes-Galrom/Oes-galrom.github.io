@@ -16,6 +16,7 @@ canvas {
     z-index: -1;
 }
 
+
 #mountain-image {
         position: absolute;
         width: 100%; 
@@ -37,4 +38,24 @@ canvas {
     padding: 20px;
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
     z-index: 10;
+}
+
+
+.wrapper {
+    display: block;
+  }
+
+aside, main {
+    padding: 16px;
+}
+
+@media (min-width: 800px) {
+    .wrapper {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        grid-gap: 16px;
+    }
+    aside {
+        align-self: start;
+      }
 }
