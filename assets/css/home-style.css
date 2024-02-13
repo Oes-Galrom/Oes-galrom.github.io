@@ -15,31 +15,16 @@ canvas {
     height: 100%;
     z-index: -1;
 }
-
-
 #mountain-image {
         position: absolute;
         width: 100%; 
         z-index: 5; /* On top of the shader, but below the text */
-    }
-
+}
 #windows-image {
         position:absolute;
         width:100%;
         top: 1800px;
 }
-#content-box {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60%; /* Adjust as needed */
-    background-color: rgba(255, 255, 255, 0.301); 
-    padding: 20px;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
-    z-index: 10;
-}
-
 
 .wrapper {
     display: block;
@@ -56,15 +41,3 @@ aside, main {
     justify-content: center;
     align-items: center;
   }
-
-
-@media (min-width: 800px) {
-    .wrapper {
-        display: grid;
-        grid-template-columns: 200px 1fr;
-        grid-gap: 16px;
-    }
-    aside {
-        align-self: start;
-      }
-}

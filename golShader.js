@@ -1,5 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-
 let golShader;
 let prevFrame;
 
@@ -8,10 +6,13 @@ function preload() {
 }
 
 function setup() {
-  const mainDiv = document.getElementById('main');
 
-  createCanvas(mainDiv.offsetWidth, mainDiv.offsetHeight, WEBGL);
-  canvas.parent('main');
+  const mainDiv = document.querySelector('Main');
+  const width = mainDiv.offsetWidth;
+  const height = mainDiv.offsetHeight;
+
+
+  createCanvas(windowWidth, windowHeight, WEBGL);
   pixelDensity(1);
   noSmooth();
   
@@ -25,9 +26,11 @@ function setup() {
   golShader.setUniform("normalRes", [1.0/width, 1.0/height]);
 }
 
-function windowResized() {
-  const mainDiv = document.getElementById('main');
-  resizeCanvas(mainDiv.offsetWidth, mainDiv.offsetHeight);
+function windowResized(){
+  const mainDiv = document.querySelector('main');
+  const newWidth = mainDiv.offsetWidth;
+  const newHeight = mainDiv.offsetHeight;
+  resizeCanvas(newWidth, newHeight);
 }
 
 function draw() {
@@ -48,4 +51,3 @@ function draw() {
   // Give the shader a surface to draw on
   rect(-width/2,-height/2,width,height);
 }
-});
