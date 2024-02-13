@@ -12,11 +12,11 @@ function setup() {
   const height = mainDiv.offsetHeight;
 
 
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  createCanvas(width, height, WEBGL);
   pixelDensity(1);
   noSmooth();
   
-  prevFrame = createGraphics(width, height);
+  prevFrame = createGraphics(width, height, WEBGL);
   prevFrame.pixelDensity(1);
   prevFrame.noSmooth();
   
