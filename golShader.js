@@ -7,7 +7,11 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  const mainDiv = document.getElementById('main');
+
+  const canvas = createCanvas(mainDiv.offsetWidth, mainDiv.offsetHeight, WEBGL).canvas;
+
+  canvas.parent('main');
   pixelDensity(1);
   noSmooth();
   
@@ -21,8 +25,9 @@ function setup() {
   golShader.setUniform("normalRes", [1.0/width, 1.0/height]);
 }
 
-function windowResized(){
-  resizeCanvas(windowWidth, windowHeight);
+function windowResized() {
+  const mainDiv = document.getElementById('main');
+  resizeCanvas(mainDiv.offsetWidth, mainDiv.offsetHeight);
 }
 
 function draw() {
