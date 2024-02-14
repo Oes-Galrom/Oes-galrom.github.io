@@ -7,23 +7,29 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
+
+  const container = document.getElementById('shaderCanvasContainer');
+  const cw = container.offsetWidth;
+  const ch = container.offsetHeight;
+
+
+  shaderCanvas = createCanvas(cw, ch, WEBGL);
+  shaderCanvas.parent('shaderCanvasContainer');
   pixelDensity(1);
   noSmooth();
   
-  prevFrame = createGraphics(width, height);
+  prevFrame = createGraphics(cw, ch, WEBGL);
   prevFrame.pixelDensity(1);
   prevFrame.noSmooth();
   
   background(0);
-  stroke(255);
+  noStroke();
   shader(golShader);
-  golShader.setUniform("normalRes", [1.0/width, 1.0/height]);
-}
+ 
+  golShader.setUniform("normalRes", [1.0/cw, 1.0/ch]);
+  }
 
-function windowResized(){
-  resizeCanvas(windowWidth, windowHeight);
-}
+
 
 function draw() {
   if(mouseIsPressed) {
@@ -35,11 +41,16 @@ function draw() {
     );
   }  
   
-  // Copy the rendered image into our prevFrame image
   prevFrame.image(get(), 0, 0);  
-  // Set the image of the previous frame into our shader
   golShader.setUniform('tex', prevFrame);
   
-  // Give the shader a surface to draw on
-  rect(-width/2,-height/2,width,height);
+  rect(-cw / 2, -ch / 2, cw, ch);
+}
+
+function windowResized() {
+  // Resize the canvas to fit the container upon window resize
+  const container = document.getElementById('shaderCanvasContainer');
+  const cw = container.offsetWidth;
+  const ch = container.offsetHeight;
+  resizeCanvas(cw, ch);
 }
