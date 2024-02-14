@@ -1,4 +1,5 @@
 let golShader;
+
 let prevFrame;
 
 function preload() {
@@ -6,17 +7,11 @@ function preload() {
 }
 
 function setup() {
-
-  const mainDiv = document.querySelector('Main');
-  const width = mainDiv.offsetWidth;
-  const height = mainDiv.offsetHeight;
-
-
-  createCanvas(width, height, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   pixelDensity(1);
   noSmooth();
   
-  prevFrame = createGraphics(width, height, WEBGL);
+  prevFrame = createGraphics(width, height);
   prevFrame.pixelDensity(1);
   prevFrame.noSmooth();
   
@@ -27,10 +22,7 @@ function setup() {
 }
 
 function windowResized(){
-  const mainDiv = document.querySelector('main');
-  const newWidth = mainDiv.offsetWidth;
-  const newHeight = mainDiv.offsetHeight;
-  resizeCanvas(newWidth, newHeight);
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
