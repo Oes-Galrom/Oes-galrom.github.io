@@ -3,6 +3,7 @@ body {
     background: hsl(210deg 30% 12%);
     padding: 0;
     margin: 0;
+    position: relative 
   }
   .parent {
     --padding: 4px;
@@ -48,16 +49,3 @@ body {
     font-weight: bold;
   }
 
-  #shaderCanvasContainer {
-    overflow: hidden; /* Keeps any overflowing content from the shader within the bounds */
-    grid-area: 1 / -1; /* Adjust this based on where you want the shader in the grid */
-    display: flex; /* Ensures the canvas can size correctly within the container */
-    justify-content: center; /* Center the canvas if it's smaller than the container */
-    align-items: center; /* Align vertically */
-}
-
-#shaderCanvasContainer canvas {
-    width: 100%; /* Fill the container width */
-    height: 100%; /* Fill the container height */
-    display: block; /* Block display to fill the container correctly */
-}
