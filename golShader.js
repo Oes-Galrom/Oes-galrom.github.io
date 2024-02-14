@@ -2,7 +2,7 @@ let golShader;
 let prevFrame;
 
 let cw, ch;
-console.log(cw);//test cw 
+
   
 function preload() {//load shader assets
   golShader = loadShader('assets/shaders/gol.vert', 'assets/shaders/gol.frag');
@@ -11,11 +11,13 @@ function setup() {
   const container = document.getElementById('golcnv');
   cw = container.offsetWidth;
   ch = container.offsetHeight;
+  console.log(cw);//test cw 
+
   let cnv = createCanvas(cw, ch, WEBGL);
   cnv.parent('golcnv');//needs to point at the css-grid segment needed
   cnv.style('position', 'absolute')
   cnv.style('inset', 0)
-  cnv.style('z-index', -1)
+  //cnv.style('z-index', -1)
 
   pixelDensity(1);
   noSmooth();
