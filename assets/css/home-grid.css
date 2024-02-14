@@ -49,5 +49,15 @@ body {
   }
 
   #shaderCanvasContainer {
-    overflow: hidden; /* Or 'auto' to provide scrollbars if needed */
-  }
+    overflow: hidden; /* Keeps any overflowing content from the shader within the bounds */
+    grid-area: 1 / -1; /* Adjust this based on where you want the shader in the grid */
+    display: flex; /* Ensures the canvas can size correctly within the container */
+    justify-content: center; /* Center the canvas if it's smaller than the container */
+    align-items: center; /* Align vertically */
+}
+
+#shaderCanvasContainer canvas {
+    width: 100%; /* Fill the container width */
+    height: 100%; /* Fill the container height */
+    display: block; /* Block display to fill the container correctly */
+}
