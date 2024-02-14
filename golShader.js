@@ -1,6 +1,7 @@
 let golShader;
-
 let prevFrame;
+let cw, ch; 
+
 
 function preload() {
   golShader = loadShader('assets/shaders/gol.vert', 'assets/shaders/gol.frag');
@@ -9,8 +10,8 @@ function preload() {
 function setup() {
 
   const container = document.getElementById('shaderCanvasContainer');
-  const cw = container.offsetWidth;
-  const ch = container.offsetHeight;
+  cw = container.offsetWidth;
+  ch = container.offsetHeight;
 
 
   shaderCanvas = createCanvas(cw, ch, WEBGL);
@@ -48,9 +49,8 @@ function draw() {
 }
 
 function windowResized() {
-  // Resize the canvas to fit the container upon window resize
   const container = document.getElementById('shaderCanvasContainer');
-  const cw = container.offsetWidth;
-  const ch = container.offsetHeight;
+  cw = container.offsetWidth; 
+  ch = container.offsetHeight; 
   resizeCanvas(cw, ch);
 }
