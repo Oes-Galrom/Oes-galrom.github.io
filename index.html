@@ -1,36 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-    
-
-</head>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/css/home-style.css">
+        <title>Landing Page</title>
+    </head>
 <body>
-
-    <div class="wrapper">
-        <aside>Sidebar
-            <h3>mini scripts</h3>
-                <a href="game-of-life.html">Game of Life standard<br></a>
-                <a href="langton-ant.html">Langton's Ant<br></a>
-                <a href="water-sim.html">Water Sim to be<br></a>
-                <a href="test.html">TEST<br></a>
-                <a href="golShader.html">gol shader<br></a>
-                <a href="Lsys.html">falling sideways<br></a> 
-
-
-        </aside>
-        <main>    
-            <img src="assets/img/Mountain-png.png" alt="Mountain" draggable="false" id="mountain-image">
-    
-            <div id="content-box">
-                
-            </div>
-            <!-- <img src="assets/img/windows-white.png" alt="Windows" draggable="false" id="windows-image">  -->
-        
-        
-            <script src="golShader.js"></script></main>
+    <style>
+        .parent {
+          display: grid;
+          grid-template-columns: 1fr 3fr;
+          grid-template-rows: 5rem 1fr;
+        }
+      </style>
+      
+      <div class="parent">
+        <div class="child"></div>
+        <div class="child" id="shaderCanvasContainer"> <h2>Game of Life on Shaders (Draw anywhere)<br><br> </h2> </div>
+        <div class="child">  <h3>mini scripts</h3>
+            <a href="game-of-life.html">Game of Life standard<br></a>
+            <a href="langton-ant.html">Langton's Ant<br></a>
+            <a href="water-sim.html">Water Sim to be<br></a>
+            <a href="test.html">TEST<br></a>
+            <a href="golShader.html">gol shader<br></a>
+            <a href="Lsys.html">falling sideways<br></a> </div>
+        <div class="child"></div>
       </div>
-
-
-
 </body>
 </html>
