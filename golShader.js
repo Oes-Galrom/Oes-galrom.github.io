@@ -1,75 +1,45 @@
 let golShader;
+
 let prevFrame;
 
-let cw, ch;
-
-  
-function preload() {//load shader assets
-  golShader = loadShader('assets/shaders/gol.vert', 'assets/shaders/gol.frag', shaderLoaded, shaderError);
+function preload() {
+  golShader = loadShader('assets/shaders/gol.vert', 'assets/shaders/gol.frag');
 }
-
-// Callback function for successful shader loading
-function shaderLoaded() {
-  console.log('Shader loaded successfully.');
-}
-
-// Callback function for shader loading error
-function shaderError(err) {
-  console.error('Shader failed to load:', err);
-}
-
 
 function setup() {
-  const container = document.getElementById('golcnv');
-  cw = container.offsetWidth;
-  ch = container.offsetHeight;
-  console.log(cw);//test cw 
-  console.log(container);//test cw 
-
-  
-
-  let cnv = createCanvas(cw, ch, WEBGL);
-  cnv.parent('golcnv');//needs to point at the css-grid segment needed
-  cnv.style('position', 'absolute')
-  cnv.style('inset', 0)
-  cnv.style('z-index', 10)
-
+  createCanvas(windowWidth, windowHeight, WEBGL);
   pixelDensity(1);
   noSmooth();
   
-  prevFrame = createGraphics(cw, ch, WEBGL);
+  prevFrame = createGraphics(width, height);
   prevFrame.pixelDensity(1);
   prevFrame.noSmooth();
   
   background(0);
-  noStroke();
+  stroke(255);
   shader(golShader);
-  golShader.setUniform("normalRes", [1.0/cw, 1.0/ch]);
-  }
+  golShader.setUniform("normalRes", [1.0/width, 1.0/height]);
+}
 
-
+function windowResized(){
+  resizeCanvas(windowWidth, windowHeight);
+}
 
 function draw() {
   if(mouseIsPressed) {
     line(
-      pmouseX-cw/2,
-      pmouseY-ch/2,
-      mouseX-cw/2,
-      mouseY-ch/2
+      pmouseX-width/2,
+      pmouseY-height/2,
+      mouseX-width/2,
+      mouseY-height/2
     );
   }  
   
+  // Copy the rendered image into our prevFrame image
   prevFrame.image(get(), 0, 0);  
+  // Set the image of the previous frame into our shader
   golShader.setUniform('tex', prevFrame);
   
-  rect(-cw / 2, -ch / 2, cw, ch);
+  // Give the shader a surface to draw on
+  rect(-width/2,-height/2,width,height);
 }
-
-function windowResized() {
-  const container = document.getElementById('golcnv');
-  cw = container.offsetWidth; // cw and ch need to be set to the grids parameters.
-  ch = container.offsetHeight;
-  resizeCanvas(cw, ch);
-}
-
-
