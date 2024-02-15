@@ -12,6 +12,9 @@ function setup() {
   cw = container.offsetWidth;
   ch = container.offsetHeight;
   console.log(cw);//test cw 
+  console.log(container);//test cw 
+
+  
 
   let cnv = createCanvas(cw, ch, WEBGL);
   cnv.parent('golcnv');//needs to point at the css-grid segment needed
