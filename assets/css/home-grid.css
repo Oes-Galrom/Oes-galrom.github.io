@@ -36,7 +36,14 @@ body {
   }
   
   .header {
-    grid-area: header; /* Assigns this element to the header area */
+    background: hsl(210deg 15% 20%); /* Ensure contrast with shader animation */
+    border: 1px solid #fff; /* Temporarily added for visibility during development */
+    grid-area: header; /* Continues to assign this element to the header area */
+    min-height: 250px; /* Example height, adjust based on your animation's needs */
+    position: relative; /* Ensures the canvas can be absolutely positioned within */
+    display: flex; /* Centers the content, if needed */
+    justify-content: center; /* Horizontally center the content, if desired */
+    align-items: center; /* Vertically center the content, if desired */
   }
 
   .child {
