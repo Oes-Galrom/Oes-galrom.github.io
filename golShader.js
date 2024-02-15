@@ -5,8 +5,20 @@ let cw, ch;
 
   
 function preload() {//load shader assets
-  golShader = loadShader('assets/shaders/gol.vert', 'assets/shaders/gol.frag');
+  golShader = loadShader('assets/shaders/gol.vert', 'assets/shaders/gol.frag', shaderLoaded, shaderError);
 }
+
+// Callback function for successful shader loading
+function shaderLoaded() {
+  console.log('Shader loaded successfully.');
+}
+
+// Callback function for shader loading error
+function shaderError(err) {
+  console.error('Shader failed to load:', err);
+}
+
+
 function setup() {
   const container = document.getElementById('golcnv');
   cw = container.offsetWidth;
@@ -20,7 +32,7 @@ function setup() {
   cnv.parent('golcnv');//needs to point at the css-grid segment needed
   cnv.style('position', 'absolute')
   cnv.style('inset', 0)
-  //cnv.style('z-index', -1)
+  cnv.style('z-index', 10)
 
   pixelDensity(1);
   noSmooth();
