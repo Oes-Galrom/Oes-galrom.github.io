@@ -7,7 +7,9 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  let golcnv =createCanvas(windowWidth, windowHeight, WEBGL);
+  golcnv.parent('myContainer');
+
   pixelDensity(1);
   noSmooth();
   
@@ -21,22 +23,8 @@ function setup() {
   golShader.setUniform("normalRes", [1.0/width, 1.0/height]);
 }
 
-
-function adjustCanvasToChild() {
-  const child = document.querySelector('.child');
-  const rect = child.getBoundingClientRect();
-  
-  // Resize and reposition canvas
-  resizeCanvas(rect.width, rect.height);
-  canvas.style.position = 'absolute';
-  canvas.style.top = `${rect.top}px`;
-  canvas.style.left = `${rect.left}px`;
-  canvas.style.zIndex = '0'; // Ensure it's below the child content
-}
-
 function windowResized(){
-  adjustCanvasToChild();
-
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
