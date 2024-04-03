@@ -1,19 +1,23 @@
-{% extends "index.html" %}
+{% extends "_base.html" %}
 
-{% block title %}{{ config.title }} - {{ config.extra.label_tags }}{% endblock title %}
+{% block page %}tag-list{% endblock page%}
+{% block lang -%}
+{% set section = get_section(path="blog/_index.md", metadata_only=true) %}
+{%- if section.extra.lang %}{{ section.extra.lang }}{% else %}{{ lang }}{% endif -%}
+{%- endblock lang %}
+{% block title %}Tags{% endblock title %}
 
-{% block header %}
-<div class="page-header">
-  <h1>{{ config.extra.label_tags }}</h1>
+{% block content %}
+{% include "_header.html" %}
+<div id="tag-list-wrapper">
+  <main>
+    <div class="title">Tags</div>
+    <div class="tags">
+      {% for tag in terms -%}
+      <a href="{{ tag.permalink }}"># {{ tag.name | lower }}</a>
+      {%- endfor %}
+    </div>
+  </main>
+  {% include "_footer.html" %}
 </div>
-{% endblock header %}
-
-{% block main %}
-<ul>
-  {% for category in terms %}
-    <li>
-      <a href="{{ category.permalink }}">{{ category.name }}</a> ({{ category.pages | length }})
-    </li>
-  {% endfor %}
-  </ul>
-{% endblock main %}
+{% endblock content %}

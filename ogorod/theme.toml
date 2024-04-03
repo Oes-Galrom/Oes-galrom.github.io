@@ -1,10 +1,16 @@
-name = "zola.386"
-description = "Zola port of the BOOTSTRA.386 theme."
+name = "tranquil"
+description = "A blog theme for zola, simple and clean"
 license = "MIT"
-homepage = "https://github.com/lopes/zola.386"
-min_version = "0.10.1"
-demo = "https://zola386.netlify.com"
+homepage = "https://github.com/TeaDrinkingProgrammer/tranquil"
+min_version = "0.9.0"
+demo = "https://teadrinkingprogrammer.github.io/tranquil-demo/"
 
 [author]
-name = "José Lopes"
-homepage = "https://github.com/lopes"
+name = "TeaDrinkingProgrammer"
+homepage = "https://github.com/TeaDrinkingProgrammer"
+repo = "https://github.com/TeaDrinkingProgrammer/tranquil"
+
+[original]
+author = "isunjn"
+homepage = "https://github.com/isunjn"
+repo = "https://github.com/isunjn/serene"

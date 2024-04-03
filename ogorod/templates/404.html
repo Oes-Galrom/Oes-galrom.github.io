@@ -1,29 +1,18 @@
-{% extends "index.html" %}
+{% extends "_base.html" %}
+{% block page %}fourofour{% endblock page%}
+{% block lang %}en{% endblock lang %}
 
-{% block title %}{{ config.title }} - 404{% endblock title %}
-
-{% block navbar %}
-{% for item in config.extra.zola386_menu %}
-<li>
-  <a href="{{ config.base_url }}/{{item.path}}"><span>{{ item.name }}</span></a>
-</li>
-{% endfor %}
-{% endblock %}
-
-{% block header %}
-<div class="alert alert-error navmargin">
-  <h1>404 - Not found</h1>
-</div>
-{% endblock header %}
-
-{% block main %}
-<p>
-  The page you requested was not found.<br>
-  You can try to find it by browsing the menus.
-</p>
-<p>
-  <a href="{{ config.base_url }}" class="btn btn-info" role="button">Home</a>
-  <a href="{{ config.base_url }}/categories" class="btn btn-info" role="button">Categories</a>
-  <a href="{{ config.base_url }}/tags" class="btn btn-info" role="button">Tags</a>
-</p>
-{% endblock main %}
+{% block title %}{{ config.title }}{% endblock title %}
+{% block desc %}{{ config.description }}{% endblock desc %}
+{% block content %}
+<main class="col h-screen flex-center justify-center">
+    <div class="flex justify-center">
+        <div class="col">
+            <h1 class="text-3xl">404: Page Not Found </h1>
+            <div class="flex justify-center">
+                <a class="tl-link text-lg" href="{{ config.base_url }}">home</a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

@@ -1,17 +1,29 @@
-{% extends "index.html" %}
+{% extends "_base.html" %}
 
-{% block title %}{{ config.title }} - {{ config.extra.label_tags }}{% endblock title %}
+{% block page %}tag-single{% endblock page %}
+{% block lang -%}
+{% set section = get_section(path="blog/_index.md", metadata_only=true) %}
+{%- if section.extra.lang %}{{ section.extra.lang }}{% else %}{{ lang }}{% endif -%}
+{%- endblock lang %}
+{% block title %}{{section.title}}{% endblock title %}
 
-{% block header %}
-<div class="page-header">
-  <h1>{{ config.extra.label_tag }}: {{ term.name }}</h1>
+{% block content %}
+{% include "_header.html" %}
+<div id="tag-single-wrapper">
+  <main>
+    <div class="title">
+      <span># {{ term.name }}</span>
+      <a href="{{ config.base_url ~ '/tags' }}">All Tags</a>
+    </div>
+    <div class="post-list">
+      {% for post in term.pages %}
+      <a class="post" href="{{ post.permalink }}">
+        <span>{{ post.title }}</span>
+        <span class="date">{{ post.date | date }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </main>
+  {% include "_footer.html" %}
 </div>
-{% endblock header %}
-
-{% block main %}
-<ul>
-{% for page in term.pages %}
-  <li>{{ macro::post_min(page=page) }}</li>
-{% endfor %}
-</ul>
-{% endblock main %}
+{% endblock content %}
