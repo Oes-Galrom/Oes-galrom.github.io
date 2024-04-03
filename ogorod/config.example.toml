@@ -1,8 +1,8 @@
 # serene v1.2.0 (check for update at https://github.com/isunjn/serene/releases)
 
-base_url = "https://example.com"      # Domain name of your website
-title = "xxxx"
-description = "xxxx xxxx xxxx"
+base_url = "https://oes-galrom.github.io"      # Domain name of your website
+title = "ogorod"
+description = "portfolio + blog"
 default_language = "en"
 theme = "tranquil"
 output_dir = "public"
@@ -36,12 +36,12 @@ insert_anchor_links = "left"
 
 [extra]
 
-name = "xxxx"                         # Your name
-id = "xxxx"                           # Your id / username / handle
-bio = "xxxx"                          # Your bio
+name = "Oscar G"                         # Your name
+id = "oes-galrom"                           # Your id / username / handle
+bio = "Avid Developer"                          # Your bio
 avatar = "img/avatar.webp"            # Your avatar
 links = [                             # Your links
-    { name = "GitHub", icon = "github", url = "https://github.com/<your-username>" },
+    { name = "GitHub", icon = "github", url = "https://github.com/oes-galrom" },
     { name = "Twitter", icon = "twitter", url = "https://twitter.com/<your-username>" },
     { name = "Email", icon = "email", url = "mailto:<your-email-address>" },
 ]
