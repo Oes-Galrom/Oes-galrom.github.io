@@ -21,7 +21,7 @@ author = "José Lopes - Oscar"
 year = "2020 - 2024"
 
 keywords = "zola, theme, retro, hacking"
-theme_color = "#000084"
+theme_color = "#000027"
 zola386_menu = [
   {path="", name="Home"},
   {path="categories", name="Categories"},
