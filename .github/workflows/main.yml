@@ -14,4 +14,4 @@ jobs:
           # Target branch
           BUILD_DIR: "./ogorod"
           PAGES_BRANCH: gh-pages
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.ACTION_KEY }}
