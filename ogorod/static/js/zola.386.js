@@ -1,5 +1,5 @@
 _386 = { 
   fastLoad: false,
-  onePass: true,
+  onePass: false,
   speedFactor: 1
 };

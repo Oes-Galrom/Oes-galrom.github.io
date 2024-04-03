@@ -17,11 +17,11 @@ taxonomies = [
 
 
 [extra]
-author = "José Lopes - Oscar"
-year = "2020 - 2024"
+author = " Oscar"
+year = "2024"
 
 keywords = "zola, theme, retro, hacking"
-theme_color = "#000027"
+theme_color = "#ffff7b"
 zola386_menu = [
   {path="", name="Home"},
   {path="categories", name="Categories"},
