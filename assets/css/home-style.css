@@ -17,40 +17,14 @@ canvas {
     z-index: -1;
 }
 
-.parent {
-    display: grid;
-    grid-template-columns: 2fr repeat(3, 1fr) 2fr;
-    grid-template-rows: 1fr .5fr repeat(3, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    }
-    
-    .div1 { grid-area: 1 / 1 / 2 / 5; }
-    .div2 { grid-area: 1 / 5 / 2 / 6; }
-    .div3 { grid-area: 2 / 5 / 4 / 6; }
-    .div4 { grid-area: 4 / 5 / 6 / 6; }
-    .div5 { grid-area: 2 / 1 / 6 / 5; }
-
-
-#mountain-image {
-        position: absolute;
-        width: 100%; 
-        z-index: 5; /* On top of the shader, but below the text */
-    }
-
-#windows-image {
-        position:absolute;
-        width:100%
-        y-index: 25;
-}
 #content-box {
-    position: relative;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 60%; /* Adjust as needed */
-    background-color: rgba(255, 255, 255, 0.301); 
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
     padding: 20px;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 10;
 }
