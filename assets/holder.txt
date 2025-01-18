@@ -1,0 +1,135 @@
+// Water Simulation in p5.js
+
+let grid;
+const gridWidth = 100;
+const gridHeight = 100;
+const center = { x: gridWidth / 2, y: gridHeight / 2 };
+const dampingFactor = 0.99;
+const rippleThreshold = 0.01;
+
+function setup() {
+    createCanvas(gridWidth, gridHeight);
+    grid = createGrid(gridWidth, gridHeight);
+}
+
+function draw() {
+    background(0);
+    updateGrid();
+    generateDroplet();
+    renderGrid();
+}
+
+function createGrid(width, height) {
+    let grid = new Array(height);
+    for (let y = 0; y < height; y++) {
+        grid[y] = new Array(width).fill(0);
+    }
+    return grid;
+}
+
+function updateGrid() {
+    let newGrid = createGrid(gridWidth, gridHeight);
+
+    for (let y = 1; y < gridHeight - 1; y++) {
+        for (let x = 1; x < gridWidth - 1; x++) {
+            let avg = (
+                grid[y - 1][x] + grid[y + 1][x] +
+                grid[y][x - 1] + grid[y][x + 1]
+            ) / 4;
+
+            newGrid[y][x] = avg * dampingFactor;
+        }
+    }
+
+    grid = newGrid.map(row => row.map(value => value > rippleThreshold ? value : 0));
+}
+
+function generateDroplet() {
+    if (random() < 0.05) {
+        let dropletX = int(random(gridWidth));
+        let dropletY = int(random(gridHeight));
+        grid[dropletY][dropletX] = 255;
+    }
+}
+
+function renderGrid() {
+    for (let y = 0; y < gridHeight; y++) {
+        for (let x = 0; x < gridWidth; x++) {
+            let colorValue = grid[y][x];
+            stroke(255 - colorValue);
+            point(x, y);
+        }
+    }
+}
+
+
+
+
+
+
+
+        <!-- Vertex Shader -->
+        <script type="x-shader/x-vertex" id="vertex-shader">
+            attribute vec3 aPosition;
+            attribute vec2 aTexCoord;
+            
+            varying vec2 vTexCoord;
+            
+            void main() {
+              // copy the texcoords
+              vTexCoord = aTexCoord;
+            
+              vec4 positionVec4 = vec4(aPosition, 1.0);
+              positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
+            
+              gl_Position = positionVec4;
+            }//basic vertex shader
+        </script>
+    
+        <!-- Fragment Shader -->
+        <script type="x-shader/x-fragment" id="fragment-shader">
+            #ifdef GL_ES
+            precision mediump float;
+            #endif
+            
+            varying vec2 vTexCoord;//coordinate of the pixel currently being rendered on screen
+            uniform sampler2D tex;//texture of the screen being passed from the draw function
+            uniform vec2 normalRes;//size of the pixel, uniform because its the same, vs varying if different each run
+            
+            
+            void main() {
+              vec2 uv = vTexCoord;
+              
+              uv.y = 1.0 - uv.y;//inversion of the y coordinate
+              
+              vec4 col = texture2D(tex, uv);
+              float a = col.r;//check the color at the location what the previous color was. the color is stored to determine if alive or dead 
+              
+              float num = 0.0;//count all the neighbords around the current cell, calculate where their coordinates are within texture. Add whether it is alive or dead
+              for(float i = -1.0; i < 2.0; i++) {
+                for(float j = -1.0; j < 2.0; j++) {
+                  float x = uv.x + i * normalRes.x;
+                  float y = uv.y + j * normalRes.y;
+            
+                  num += texture2D(tex, vec2(x, y)).r;
+                }
+              }
+              
+              num -= a;//dont want the current location(just neighbords)
+              
+              if(a > 0.5) {//if cell is alive check neighbors, set to dead or alive depending on neighbor state.
+                if(num < 1.5) {
+                  a = 0.0;
+                }
+                if(num > 3.5) {
+                  a = 0.0;
+                }
+              } else {
+                if(num > 2.5 && num < 3.5) {
+                  a = 1.0;
+                }
+              }
+              
+              gl_FragColor = vec4(a, a, a, 1.0);//output of the cells life state
+            }
+                    </script>
