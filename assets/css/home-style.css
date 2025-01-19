@@ -1,57 +1,72 @@
-/* layout and structural rules */
-html, body {
+:root {
+    /* zola-inspired custom properties */
+    --fonts: "Bitter", "Noto Serif SC", "Noto Serif JP", serif;
+    --time-fonts: "Kode Mono", monospace;
+    --mono-fonts: "Fira Code", "Noto Sans SC", "Noto Sans JP", monospace;
+  
+    --text-color: #2d2d2d;
+    --text-sub-color: #666666;
+    --accent-color: maroon;
+    --background-color: #faf5f2;
+  
+    --code-background-color: rgba(142, 114, 114, 0.04);
+    --code-border-color: rgba(173, 171, 108, 0.2);
+  
+    --divider-color: #c6c6c6;
+  }
+  
+  /* overall layout and lock scrolling on the body */
+  html,
+  body {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden; /* lock scrolling */
-    background: var(--background-color, #faf5f2); /* use zola background color */
-    color: var(--text-color, #2d2d2d);
-    font: 16px/1.5 var(--fonts, "Bitter", serif);
+    overflow: hidden; /* no page-level scrolling */
+    background: var(--background-color);
+    color: var(--text-color);
+    font: 16px/1.5 var(--fonts);
   }
   
+  /* the fixed background canvas */
   #canvas-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0; /* behind everything */
+    z-index: 0; /* behind everything else */
   }
   
+  /* the centered content column that scrolls internally */
   #content {
-    position: relative;
-    z-index: 1;
-    width: 50%;
-    height: 100%; /* full height column */
-    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px; /* or 50%, or whatever suits you */
+    height: 100%; /* fill all vertical space */
+    overflow-y: auto; /* scroll inside this column */
     background-color: rgba(255, 255, 255, 0.7);
-    overflow-y: auto; /* enable scrolling within the content */
-    padding: 20px;
     box-sizing: border-box;
-    border: 1px solid var(--divider-color, #c6c6c6);
-    border-radius: 10px;
+    padding: 20px;
   }
   
-  /* zola-inspired styles */
+  /* zola-inspired styling for text elements, tables, etc. */
   a {
     color: inherit;
     text-decoration: underline;
     text-underline-offset: 0.25rem;
   }
   a:hover {
-    color: var(--accent-color, maroon);
-  }
-  
-  h1, h2, h3 {
-    margin: 0.5rem 0;
+    color: var(--accent-color);
   }
   
   code {
-    font-family: var(--mono-fonts, monospace);
+    font-family: var(--mono-fonts);
     font-size: 0.93rem;
     letter-spacing: -0.03rem;
-    background-color: var(--code-background-color, rgba(142, 114, 114, 0.04));
-    border: 1px solid var(--code-border-color, rgba(173, 171, 108, 0.2));
+    background-color: var(--code-background-color);
+    border: 1px solid var(--code-border-color);
     border-radius: 3px;
     padding: 1px 5px;
     display: inline-block;
@@ -60,30 +75,95 @@ html, body {
   }
   
   blockquote {
-    border-left: 3px double var(--divider-color, #c6c6c6);
+    border-left: 3px double var(--divider-color);
     margin: unset;
     padding-left: 1rem;
   }
   
   hr {
     border: none;
-    border-top: dashed 2px var(--divider-color, #c6c6c6);
+    border-top: dashed 2px var(--divider-color);
   }
   
-  ul, ol {
+  ul,
+  ol {
     padding-left: 1.2rem;
+  }
+  
+  table {
+    border-collapse: collapse;
+    border: 1px solid var(--code-border-color);
+    border-style: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 0 1.5px var(--divider-color);
+    margin: auto;
+  }
+  td,
+  th {
+    border: 1px solid var(--divider-color);
+    padding: 0.7rem;
+  }
+  th {
+    background-color: var(--code-background-color);
+  }
+  
+  pre {
+    background-color: var(--code-background-color);
+    border: 1px solid var(--code-border-color);
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    overflow: scroll;
+  }
+  pre code {
+    all: unset;
+    font-family: var(--mono-fonts);
+    letter-spacing: -0.04rem;
+  }
+  
+  img {
+    display: block;
+    max-width: 95%;
+    height: auto;
+    margin: auto;
+  }
+  
+  time {
+    font-optical-sizing: auto;
+    font-family: var(--time-fonts);
+    letter-spacing: -0.04em;
+  }
+  
+  sup {
+    font-size: 0.75rem;
+  }
+  
+  /* homepage-like elements (optional, if you want them) */
+  .header-site-title a {
+    font-family: "rock salt", var(--fonts);
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .header-site-nav {
+    font-size: 0.85rem;
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
   
   .site-footer {
     font-size: smaller;
+    align-items: flex-start;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
   
-  /* media query for responsiveness */
-  @media (max-width: 38rem) {
+  /* responsiveness */
+  @media (max-width: 600px) {
     #content {
-      width: 90%; /* shrink the column for smaller screens */
+      width: 90%;
     }
   }
   
