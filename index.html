@@ -2,27 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>gol shader layout</title>
+  <title>my portfolio</title>
   <!-- p5 libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
-  <!-- link to your custom css -->
-  <link rel="stylesheet" href="assets/css/golShader.css">
+  <!-- link to your zola-inspired css -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-  <!-- the background container for p5 -->
+  <!-- background canvas -->
   <div id="canvas-container"></div>
 
-  <!-- center column that scrolls internally -->
+  <!-- main content area styled with zola-inspired css -->
   <div id="content">
-    <h1>some heading</h1>
-    <p>lots of text here. keep scrolling etc. add more text to verify the scroll!</p>
-    <h2>links or other stuff</h2>
-    <p>the rest of your portfolio or other content. everything in here can scroll internally.</p>
+    <header>
+      <h1 class="header-site-title">
+        <a href="#">my portfolio</a>
+      </h1>
+      <p class="header-site-description">exploring shaders, creativity, and code.</p>
+      <nav class="header-site-nav">
+        <a href="#">home</a>
+        <a href="#">about</a>
+        <a href="#">projects</a>
+        <a href="#">contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <h2 class="page-title">welcome</h2>
+      <p class="page-front-description">this portfolio demonstrates a shader-driven interactive background, styled content, and much more.</p>
+
+      <h3>featured projects</h3>
+      <ul class="post-list">
+        <li>
+          <a href="#">game of life shader</a>
+          <time datetime="2025-01-01">jan 2025</time>
+        </li>
+        <li>
+          <a href="#">langton's ant sim</a>
+          <time datetime="2024-12-15">dec 2024</time>
+        </li>
+        <li>
+          <a href="#">water simulation</a>
+          <time datetime="2024-11-20">nov 2024</time>
+        </li>
+      </ul>
+
+      <blockquote>“simplicity is the ultimate sophistication.” – leonardo da vinci</blockquote>
+
+      <hr>
+
+      <h3>about me</h3>
+      <p>
+        i'm a developer passionate about combining creative coding with visually stunning designs. this site showcases some of my experiments and thoughts.
+      </p>
+    </main>
+
+    <footer class="site-footer">
+      <div>&copy; 2025 my portfolio. all rights reserved.</div>
+      <div>
+        <a href="#" class="zola-anchor">rss</a>
+        <a href="#" class="zola-anchor">privacy</a>
+      </div>
+    </footer>
   </div>
 
-  <!-- p5 script last -->
+  <!-- attach your shader js -->
   <script src="golShader.js"></script>
 
 </body>

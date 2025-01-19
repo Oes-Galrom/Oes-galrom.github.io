@@ -1,8 +1,12 @@
+/* layout and structural rules */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    /* remove overflow hidden if you want body to scroll as well */
+    overflow: hidden; /* lock scrolling */
+    background: var(--background-color, #faf5f2); /* use zola background color */
+    color: var(--text-color, #2d2d2d);
+    font: 16px/1.5 var(--fonts, "Bitter", serif);
   }
   
   #canvas-container {
@@ -17,11 +21,69 @@ html, body {
   #content {
     position: relative;
     z-index: 1;
-    width: 50%; /* or whatever */
-    min-height: 200vh; /* just to show scrolling, adjust as needed */
+    width: 50%;
+    height: 100%; /* full height column */
     margin: 0 auto;
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255, 255, 255, 0.7);
+    overflow-y: auto; /* enable scrolling within the content */
     padding: 20px;
     box-sizing: border-box;
+    border: 1px solid var(--divider-color, #c6c6c6);
+    border-radius: 10px;
+  }
+  
+  /* zola-inspired styles */
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+  }
+  a:hover {
+    color: var(--accent-color, maroon);
+  }
+  
+  h1, h2, h3 {
+    margin: 0.5rem 0;
+  }
+  
+  code {
+    font-family: var(--mono-fonts, monospace);
+    font-size: 0.93rem;
+    letter-spacing: -0.03rem;
+    background-color: var(--code-background-color, rgba(142, 114, 114, 0.04));
+    border: 1px solid var(--code-border-color, rgba(173, 171, 108, 0.2));
+    border-radius: 3px;
+    padding: 1px 5px;
+    display: inline-block;
+    margin: 0 3px;
+    line-height: 1rem;
+  }
+  
+  blockquote {
+    border-left: 3px double var(--divider-color, #c6c6c6);
+    margin: unset;
+    padding-left: 1rem;
+  }
+  
+  hr {
+    border: none;
+    border-top: dashed 2px var(--divider-color, #c6c6c6);
+  }
+  
+  ul, ol {
+    padding-left: 1.2rem;
+  }
+  
+  .site-footer {
+    font-size: smaller;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* media query for responsiveness */
+  @media (max-width: 38rem) {
+    #content {
+      width: 90%; /* shrink the column for smaller screens */
+    }
   }
   
