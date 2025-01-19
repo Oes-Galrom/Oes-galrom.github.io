@@ -1,7 +1,8 @@
 :root {
     
-    --fonts: "Bitter", "Noto Serif SC", "Noto Serif JP", serif;
-    --time-fonts: "Kode Mono", monospace;
+    --fonts: "Noto Serif", serif;
+    --time-fonts: "Fira Code", monospace; /* use for time/date stamps */
+    --header-fonts: "Rock Salt", serif; 
     --mono-fonts: "Fira Code", "Noto Sans SC", "Noto Sans JP", monospace;
   
     --text-color: #2d2d2d;
@@ -46,9 +47,11 @@
     width: 600px; /* or 50%, or whatever suits you */
     height: 100%; /* fill all vertical space */
     overflow-y: auto; /* scroll inside this column */
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: #faf5f2;
     box-sizing: border-box;
     padding: 20px;
+    border: 1px solid var(--divider-color, #c6c6c6);
+    border-radius: 10px;
   }
   
   /* zola-inspired styling for text elements, tables, etc. */
@@ -82,8 +85,25 @@
   
   hr {
     border: none;
-    border-top: dashed 2px var(--divider-color);
+    border-top: 2px solid var(--text-color); /* bold and clean */
+    margin: 1rem 0;
   }
+
+
+.content {
+    border-top: double 4px var(--text-color);
+    border-bottom: double 4px var(--text-color);
+    margin: 1.5rem 0;
+    padding: 1rem 0.5rem;
+  }
+  
+  .year-title {
+    border-bottom: double 2px var(--text-color);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
   
   ul,
   ol {
@@ -128,9 +148,8 @@
   }
   
   time {
-    font-optical-sizing: auto;
-    font-family: var(--time-fonts);
-    letter-spacing: -0.04em;
+    font-family: var(--time-fonts, monospace);
+    font-size: 0.85rem;
   }
   
   sup {
@@ -140,6 +159,8 @@
   /* homepage-like elements (optional, if you want them) */
   .header-site-title a {
     font-family: var(--header-fonts, serif);
+    text-align: center;
+    margin: 0.5rem 0 1rem;
     font-size: 2rem;
     text-decoration: none;
     color: inherit;
@@ -148,6 +169,17 @@
 
   body, #content {
     font-family: var(--fonts, serif);
+  }
+
+  .header-site-description {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .post-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
   }
   
   .header-site-nav {
