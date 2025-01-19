@@ -1,5 +1,5 @@
 :root {
-    /* zola-inspired custom properties */
+    
     --fonts: "Bitter", "Noto Serif SC", "Noto Serif JP", serif;
     --time-fonts: "Kode Mono", monospace;
     --mono-fonts: "Fira Code", "Noto Sans SC", "Noto Sans JP", monospace;
@@ -139,9 +139,15 @@
   
   /* homepage-like elements (optional, if you want them) */
   .header-site-title a {
-    font-family: "rock salt", var(--fonts);
+    font-family: var(--header-fonts, serif);
+    font-size: 2rem;
     text-decoration: none;
     color: inherit;
+    font-weight: bold;
+  }
+
+  body, #content {
+    font-family: var(--fonts, serif);
   }
   
   .header-site-nav {
