@@ -1,37 +1,28 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Landing Page</title>
+  <meta charset="utf-8" />
+  <title>gol shader layout</title>
+  <!-- p5 libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
-    <meta charset="utf-8" />
-
-    <link rel="stylesheet" href="assets/css/home-style.css">
+  <!-- custom css -->
+  <link rel="stylesheet" href="assets/css/home-style.css">
 </head>
 <body>
+  <!-- fixed container for the background canvas -->
+  <div id="canvas-container"></div>
 
+  <!-- scrolling content column -->
+  <div id="content">
+    <h1>some heading</h1>
+    <p>lots of text here. keep scrolling etc...</p>
+    <h2>links or other stuff</h2>
+    <p>more content for demonstration</p>
+  </div>
 
-    <div id="content-box">
-        <h1>Dock</h1>
-        <p>Welcome to my GitHub Page.</p>
-
-
-        <h2>Cellular Automata Sandbox  </h2>
-        <a href="game-of-life.html">Game of Life<br></a>
-
-        <a href="langton-ant.html">Langton's Ant<br></a>
-
-        <a href="water-sim.html">Water Sim<br></a>
-
-        <a href="test.html">TEST<br></a>
-
-        <a href="golShader.html">gol shader<br></a>
-
-        
-    </div>
-    
-
-    <script src="golShader.js"></script>
+  <!-- attach the p5 sketch last so it fills the container -->
+  <script src="golShader.js"></script>
 </body>
 </html>
