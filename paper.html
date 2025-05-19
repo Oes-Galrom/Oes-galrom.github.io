@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>my portfolio</title>
+  <!-- p5 libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&family=Fira+Code&family=Rock+Salt&display=swap" rel="stylesheet">
+
+  <!-- link to your zola-inspired css -->
+  <link rel="stylesheet" href="assets/css/home-style.css">
+</head>
+<body>
+
+  <!-- background canvas -->
+  <div id="canvas-container"></div>
+
+  <!-- main content area styled with zola-inspired css -->
+  <div id="content">
+    <header>
+      <h1 class="header-site-title">
+        <a href="#">Its Oscar's Research paper about Crow Neuroanatomy !</a>
+      </h1>
+      <p class="header-site-description"> Final Paper Neuroscience Paper from University</p>
+      <nav class="header-site-nav">
+        <a href="#">home</a>
+        <a href="#">about</a>
+        <a href="#">projects</a>
+        <a href="#">contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <h2> Comparative Neuroanatomy of the crow </h2>
+      <p class="page-front-description">tldr: Crows have a physicaly model higher dimensional time differntly from humans, of life forms on earth, their perception of it would reasonably vary from ours ---</p>
+      <h3>abstract</h3>
+      <p>…</p>
+    
+      <h3 id="intro">1 introduction</h3>
+      <p>Organic life forms act as vessels for information to be imprinted and maintained, though with differing clarity as obfuscated through their neuroanatomy. Information is hard to store, as entropy tries to reduce it to static. (Maroney, 2009). The ability to model the world spatially and temporally is a complex neurological task requiring the perception and processing of information to be effectively organized. Figuratively, it is the ability of an animal to build an active model of information pertaining to experience, and then sequentially organize that information internally, discerning relevant information between past, present, and future contexts. The relevant information and the order in which it is processed work to combat information's natural degradation in a manner specific to the adaptations of the organism. The uniqueness of human experience stems from our significant neuroanatomical progression allowing us the extravagant means to quantify and model the information presented by reality. The Corvus genus of birds has neuroanatomical organization that has evolved comparable structures to humans that allow them to interact with the world with a striking degree of intent. They are capable of displaying incredible higher-order behaviors: theory of mind, meta-cognition, and delayed gratification (Güntürkün and Bugnyar., 2016). Both subjects are capable of the extremity required to be conscious - namely that our experiences of time and reality are similar enough that the system under which we organize time can be represented through a Markov Decision Process (MDP). </p>
+      <figure style="text-align:center;">
+        <img src="assets\images\Crows\Markov Process.png"
+             alt="Markov Process Schematic"
+             style="max-width:95%; height:auto;" />
+        <figcaption>figure 2 rate of colony expansion over 14 days</figcaption>
+      </figure>
+      <p> An MDP represents a system in which an entity exists. As described by a set of states 's' where each state represents a possible configuration of the system, and a set of actions 'a' representing decisions or choices that they can make at each state (Smelser and Baltes, 2001). Actions have “weight” depending on preexisting logic set within the particular agent. The conditions of an MDP require an agent to discern reality through temporal order, namely the: past, present, and future. Previous “states” compose the bulk of past processing, fulfilled in Corvus and humans through their respective hippocampi. We experience previous states as memory. The simulation of potential future states, as well as the ability to interpret the ‘weight’ of the value of these potential states through reward mediation, is heavily influenced by the nidopallium and its correlate the pre-frontal cortex. These structures allow an entity to orient towards the future.  The information is experienced in the organism's subjective present state. The organism interprets the system through a crossover of its past and future processing along with immediately available information. In Corvus species and humans, information crossover can be observed in the mesopallium and intratelencephalic neurons. In order to sustain an MDP, Corvus would be required to discern between information that is temporally relevant to the past, future, and most importantly present. It would require them to model both the environment and their own agentic self. </p>
+    
+      <!-- continue headings & text -->
+    
+      <h3>bibliography</h3>
+      <ol>
+        <li>surname, a. “article title.” <i>journal</i>, 2024.</li>
+      </ol>
+    </main>
+
+    <footer class="site-footer">
+      <div>&copy; 2025 my portfolio. all rights reserved.</div>
+      <div>
+        <a href="#" class="zola-anchor">rss</a>
+        <a href="#" class="zola-anchor">privacy</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- attach your shader js -->
+  <script src="golShader.js"></script>
+
+</body>
+</html>
